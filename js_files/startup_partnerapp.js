@@ -477,18 +477,18 @@ px.import({
         ControlBar.prototype.suspendApplication = function() {
            var applicationName = apps[currentRow].displayName;
            if (launchedApps[applicationName] != undefined) {
-               var appStatus = optimus.getApplicationById(launchedApps[applicationName]).state();
+               var appStatus = optimus.getApplicationById(launchedApps[applicationName]).state;
 
                if (appStatus === "RUNNING")
                {
                    console.log("Suspending application: " + applicationName);
-                   optimus.getApplicationById(launchedApps[applicationName]).suspend();
+                   optimus.getApplicationById(launchedApps[applicationName]).suspend({});
                    this.buttonPAUSE.controlText.text = "Resume";
                }
                else if (appStatus === "SUSPENDED")
                {
                    console.log("Resuming application: " + applicationName);
-                   optimus.getApplicationById(launchedApps[applicationName]).resume();
+                   optimus.getApplicationById(launchedApps[applicationName]).resume({});
                    this.buttonPAUSE.controlText.text = "Suspend";
                }
            } else {
