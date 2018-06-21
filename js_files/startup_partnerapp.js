@@ -441,6 +441,10 @@ px.import({
                 {
                     _launchParams = { "cmd": "spark", "uri": applicationUri };
                 }
+                else if (applicationType == "WebApp")
+                {
+                    _launchParams = { "cmd": "WebApp", "uri": applicationUri };
+                }
 
                 var propsApp = {
                     id: nextAppId,
