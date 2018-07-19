@@ -1,0 +1,13 @@
+[Unit]
+Description=AppManager service 
+
+[Service]
+Type=simple
+ExecStartPre=/bin/systemd-tmpfiles --create appmanager.conf
+
+ExecStart=/container/APPMANAGER/launcher/appmanager.sh start
+ExecStop=/container/APPMANAGER/launcher/appmanager.sh stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
