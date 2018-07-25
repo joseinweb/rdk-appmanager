@@ -486,7 +486,7 @@ px.import({
         ControlBar.prototype.suspendApplication = function() {
            var applicationName = apps[currentRow].displayName;
            if (launchedApps[applicationName] != undefined) {
-               var appStatus = optimus.getApplicationById(launchedApps[applicationName]).state;
+               var appStatus = optimus.getApplicationById(launchedApps[applicationName]).state();
 
                if (appStatus === "RUNNING")
                {
