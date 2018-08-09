@@ -126,6 +126,17 @@ if [ "$BOX_TYPE" = "pi" ]; then
 fi
 
 
+#TODO: move to systemd
+if [ "$MODEL_NUM" = "pi" ]; then
+    if [ ! -e /opt/disable_rdkbrowser2_server ]; then
+        if [ -e /lib/rdk/runRDKBrowser2Server.sh ]; then
+            /lib/rdk/runRDKBrowser2Server.sh &
+        else
+            echo "ERROR: can't find /lib/rdk/runRDKBrowser2Server.sh"
+        fi
+    fi
+fi
+
 while :
 do
   if [ -f /opt/appmanager_start.js ]; then
