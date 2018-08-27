@@ -29,10 +29,10 @@ fi
 echo "The startup file is: $startupFile"
 
 export SPARK_TEXTURE_LIMIT_IN_MB=130
-export XDG_RUNTIME_DIR=/tmp
+export XDG_RUNTIME_DIR=/run
 export PLAYERSINKBIN_USE_WESTEROSSINK=1
 export NODE_PATH=/home/root
-#export WAYLAND_DISPLAY=main0
+export WAYLAND_DISPLAY=wayland-0
 
 if [ -z "$HOME" ]
 then
@@ -41,9 +41,7 @@ fi
 
 killall -9 westeros
 
-#if [ "$BOX_TYPE" != "pi" ]; then
 export PXCORE_FRAMERATE=60
-#fi
 
 partnerAppArguments=""
 ethIP=""
@@ -71,18 +69,11 @@ cleanupProcess()
      done
 }
 
-
-#if [ -f /lib/rdk/runWesteros.soc.sh ]; then
-#  /lib/rdk/runWesteros.soc.sh &
-#else
-#  /lib/rdk/runWesteros.sh & 
-#fi
-
 export ENABLE_XRE_WAYLAND=1
 
 cd /home/root
 
-export WAYLAND_APPS_CONFIG=/home/root/waylandregistryreceiver.conf
+export WAYLAND_APPS_CONFIG=/home/root/waylandregistry.conf
 export PXSCENE_APPS_CONFIG=/usb/partnerapps/appmanagerregistry.conf
 export WAYLAND_EGL_PRELOAD=/usr/lib/libwayland-client.so.0:/usr/lib/libwayland-egl.so:/usr/lib/libopenmaxil.so
 export LD_PRELOAD=$WAYLAND_EGL_PRELOAD
