@@ -21,6 +21,7 @@
 Description=Application Manager
 ConditionPathExists=/opt/lxc_service_disabled
 After=lighttpd.service iarmbusd.service
+Requires=westeros.service
 
 [Service]
 ExecStart=/lib/rdk/runAppManager.sh
