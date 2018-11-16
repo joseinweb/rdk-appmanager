@@ -39,8 +39,6 @@ then
    export HOME=/home/root
 fi
 
-killall -9 westeros
-
 #if [ "$BOX_TYPE" != "pi" ]; then
 export PXCORE_FRAMERATE=60
 #fi
