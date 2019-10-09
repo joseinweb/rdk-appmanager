@@ -172,11 +172,18 @@ function ControlPanel()
 							    parent: this.background,
 							    text:"" });
  
+    this.streamCurrentBitrate     = scene.create({t: "text",
+                                                            x: X,
+                                                            y: Y+40,
+                                                            parent: this.background,
+                                                            text:"" });
+
     this.streamCurrentSpeed     = scene.create({t: "text",
-							    x: X,
-							    y: Y+40,
-							    parent: this.background,
-							    text:"" }); 
+                                                            x: X+900,
+                                                            y: Y+40,
+                                                            parent: this.background,
+                                                            text:"" });
+  
     Y = RH*1.9 - H/2;
     this.divider1 = scene.create({t: "rect",
 							    x: 10,
@@ -339,6 +346,11 @@ ControlPanel.prototype.updateResolution = function(resolution)
   this.streamResolution.text = "Resolution:" + resolution;
 }
 
+ControlPanel.prototype.updateBitrate = function(bitrate)
+{
+  this.streamBitrate.text  = "Available Bitrates: " + bitrate;
+}
+
 function loadStream()
 {
     controls.loadStream();
@@ -415,16 +427,15 @@ function onMediaOpened(e)
             + "\n   sap:" + e.availableAudioLanguages
             + "\n   cc:" + e.availableClosedCaptionsLanguages
             + "\n   Available bitrates:" + e.availableBitrates
-            + "\n   Bitrates    :" + e.bitrates
-            + "\n   bitrateCount :"  + e.bitrateCount
             //+ "\n   customProperties:" + e.customProperties
             //+ "\n   mediaSegments:" + e.mediaSegments
         );
     audioLanguages = e.availableAudioLanguages.split(",");
     var resolution = e.width + "x" + e.height;
     controls.updateResolution(resolution);
-
+    controls.updateBitrate(e.availableBitrates);
 }
+
 function onProgress(e)
 {
     if(showDebugUI)
@@ -448,6 +459,7 @@ function onProgress(e)
 
     }
 }
+
 function onStatus(e)
 {
     if(showDebugUI)
@@ -474,6 +486,13 @@ function onSpeedChange(e)
     if(showDebugUI)
         logpanel.log("Event " + e.name + "\n   speed:" + e.speed);
 }
+
+function OnBitrateChanged(e)
+{
+    if(showDebugUI)
+        logpanel.log("Event " + e.name + "\n"  + "Bitrate" + e.bitrate);
+}
+
 function registerPlayerEvents()
 {
     player.on("onMediaOpened",onMediaOpened);
@@ -497,6 +516,7 @@ function registerPlayerEvents()
     player.on("onBufferWarning",onEvent);
     player.on("onPlaybackSpeedsChanged",onEvent);
     player.on("onAdditionalAuthRequired",onEvent);
+    player.on("onBitrateChanged",OnBitrateChanged);
 }
 function unRegisterPlayerEvents()
 {
@@ -520,6 +540,7 @@ function unRegisterPlayerEvents()
     player.delListener("onBufferWarning",onBufferWarning);
     player.delListener("onPlaybackSpeedsChanged",onPlaybackSpeedsChanged);
     player.delListener("onAdditionalAuthRequired",onAdditionalAuthRequired);
+    player.delListener("OnBitrateChanged",OnBitrateChanged);
 }
 function hackToMakeEventsFlow1()
 {
