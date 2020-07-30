@@ -43,6 +43,10 @@ fi
 export PXCORE_FRAMERATE=60
 #fi
 
+if [ "$BOX_TYPE" == "pi" ]; then
+   export AAMP_ENABLE_WESTEROS_SINK=1
+fi
+
 partnerAppArguments=""
 ethIP=""
 getIPAddress()
